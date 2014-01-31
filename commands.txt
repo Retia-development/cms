@@ -1,0 +1,7 @@
+// Generate html coverage report
+// Date format Y-m-d
+phpunit --coverage-html ./reports [date] tests
+
+//Generate a agile documentation
+phpunit --testdox-html ./documentation.html tests
+
