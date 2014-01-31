@@ -19,4 +19,11 @@ class RoutesTest extends PHPUnit_Framework_TestCase {
         $output = Parser::method($controller, $method);
         $this->assertEquals($output, 'test');
     }
+
+    public function test_call_class_invalid_method() {
+        $this->setExpectedException('MethodNotFound');
+        $controller = Parser::controller('MyClass');
+        $method = 'this_is_an_invalid_method';
+        Parser::method($controller, $method);
+    }
 }
