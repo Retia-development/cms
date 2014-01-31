@@ -13,17 +13,32 @@ class RoutesTest extends PHPUnit_Framework_TestCase {
         Parser::controller($invalid_controller_name);
     }
 
-    public function test_call_class_method() {
+    public function test_method() {
         $controller = Parser::controller('myClass');
         $method = 'test';
         $output = Parser::method($controller, $method);
         $this->assertEquals($output, 'test');
     }
 
-    public function test_call_class_invalid_method() {
+    public function test_invalid_method() {
         $this->setExpectedException('MethodNotFound');
         $controller = Parser::controller('MyClass');
         $method = 'this_is_an_invalid_method';
         Parser::method($controller, $method);
+    }
+
+    public function test_params() {
+        $params = '1/2/3';
+        $this->assertEquals(['1', '2', '3'], Parser::params($params));
+    }
+
+    public function test_params_with_weird_seperators() {
+        $params = '/1/2/3//4';
+        $this->assertEquals(['1', '2', '3', '4'], Parser::params($params));
+    }
+
+    public function test_empty_params() {
+        $params = '';
+        $this->assertEquals([], Parser::params($params));
     }
 }
