@@ -6,6 +6,10 @@ class MyClass {
     public function test() {
         return 'test';
     }
+
+    public function multiply($a, $b) {
+        return $a * $b;
+    }
 }
 
 class Parser {
@@ -17,12 +21,12 @@ class Parser {
         return new $controller_name();
     }
 
-    public static function method($controller, $method_name) {
-        if (!method_exists($controller, $method_name)) {
+    public static function execute($controller, $method, $params='') {
+        if (!method_exists($controller, $method)) {
             throw new MethodNotFound();
         }
 
-        return $controller->$method_name();
+        return call_user_func_array([$controller, $method], self::params($params));
     }
 
     public static function params($params) {

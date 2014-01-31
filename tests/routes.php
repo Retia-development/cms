@@ -16,7 +16,7 @@ class RoutesTest extends PHPUnit_Framework_TestCase {
     public function test_method() {
         $controller = Parser::controller('myClass');
         $method = 'test';
-        $output = Parser::method($controller, $method);
+        $output = Parser::execute($controller, $method);
         $this->assertEquals($output, 'test');
     }
 
@@ -24,7 +24,7 @@ class RoutesTest extends PHPUnit_Framework_TestCase {
         $this->setExpectedException('MethodNotFound');
         $controller = Parser::controller('MyClass');
         $method = 'this_is_an_invalid_method';
-        Parser::method($controller, $method);
+        Parser::execute($controller, $method);
     }
 
     public function test_params() {
@@ -40,5 +40,16 @@ class RoutesTest extends PHPUnit_Framework_TestCase {
     public function test_empty_params() {
         $params = '';
         $this->assertEquals([], Parser::params($params));
+    }
+
+    public function test_controller_method_with_params() {
+        $controller_name = 'MyClass';
+        $method_name = 'multiply';
+        $params = '2/3';
+
+        $controller = Parser::controller($controller_name);
+        $output = Parser::execute($controller, $method_name, $params);
+
+        $this->assertEquals($output, 6);
     }
 }
