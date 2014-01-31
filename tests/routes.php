@@ -12,4 +12,11 @@ class RoutesTest extends PHPUnit_Framework_TestCase {
         $invalid_controller_name = 'InvalidClass';
         Parser::controller($invalid_controller_name);
     }
+
+    public function test_call_class_method() {
+        $controller = Parser::controller('myClass');
+        $method = 'test';
+        $output = Parser::method($controller, $method);
+        $this->assertEquals($output, 'test');
+    }
 }
