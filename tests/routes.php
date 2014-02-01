@@ -25,6 +25,12 @@ class RoutesTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals($output, 'indekusu');
     }
 
+    public function test_default_empty_method() {
+        $controller = Parser::controller('MyController');
+        $output = Parser::execute($controller, '');
+        $this->assertEquals($output, 'indekusu');
+    }
+
     public function test_invalid_method() {
         $this->setExpectedException('\Core\Exceptions\MethodNotFound');
         $controller = Parser::controller('MyController');

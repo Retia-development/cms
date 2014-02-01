@@ -1,15 +1,21 @@
 <?php 
 class MyController {
 	public function index() {
-		return 'indekusu';
+        $value = 'indekusu';
+		echo $value;
+        return $value;
 	}
 
     public function test() {
-        return 'test';
+        $value = 'test';
+        echo $value;
+        return $value;
     }
 
     public function multiply($a, $b) {
-        return $a * $b;
+        $value = $a * $b;
+        echo "$a * $b = $value";
+        return $value;
     }
 
     private function private_method() {
