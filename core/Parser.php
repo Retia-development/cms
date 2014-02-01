@@ -22,7 +22,11 @@ class Parser {
         return new $controller_name();
     }
 
-    public static function execute($controller, $method, $params='') {
+    public static function execute($controller, $method=NULL, $params='') {
+        if (is_null($method)) {
+            $method = 'index';
+        }
+        
         if (!method_exists($controller, $method)) {
             throw new MethodNotFound();
         }

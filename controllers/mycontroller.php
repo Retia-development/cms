@@ -1,5 +1,9 @@
 <?php 
 class MyController {
+	public function index() {
+		return 'indekusu';
+	}
+
     public function test() {
         return 'test';
     }

@@ -8,7 +8,7 @@ class RoutesTest extends PHPUnit_Framework_TestCase {
     }
 
     public function test_get_class_invalid_controller() {
-        $this->setExpectedException('ControllerNotFound');
+        $this->setExpectedException('\Core\ControllerNotFound');
         $invalid_controller_name = 'InvalidClass';
         \Core\Parser::controller($invalid_controller_name);
     }
@@ -20,8 +20,14 @@ class RoutesTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals($output, 'test');
     }
 
+    public function test_default_method() {
+        $controller = \Core\Parser::controller('MyController');
+        $output = \Core\Parser::execute($controller);
+        $this->assertEquals($output, 'indekusu');
+    }
+
     public function test_invalid_method() {
-        $this->setExpectedException('MethodNotFound');
+        $this->setExpectedException('\Core\MethodNotFound');
         $controller = \Core\Parser::controller('MyController');
         $method = 'this_is_an_invalid_method';
         \Core\Parser::execute($controller, $method);
