@@ -11,4 +11,8 @@ class MyController {
     public function multiply($a, $b) {
         return $a * $b;
     }
+
+    private function private_method() {
+    	return 'I am private';
+    }
 }

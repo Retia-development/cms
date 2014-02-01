@@ -3,7 +3,8 @@ namespace Core;
 use Exception;
 
 class ControllerNotFound extends Exception {}
-class MethodNotFound extends Exception {}
+class MethodNotFound     extends Exception {}
+class MethodNotCallable  extends Exception {}
 
 class Parser {
     public static function controller($controller_name) {
@@ -26,9 +27,13 @@ class Parser {
         if (is_null($method)) {
             $method = 'index';
         }
-        
+
         if (!method_exists($controller, $method)) {
             throw new MethodNotFound();
+        }
+
+        if (!is_callable([$controller, $method])) {
+            throw new MethodNotCallable();
         }
 
         return call_user_func_array([$controller, $method], self::params($params));
