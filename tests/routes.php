@@ -1,7 +1,5 @@
 <?php 
-require_once('core/Parser.php'); 
-require_once('core/exceptions/controller_not_found.php');
-require_once('core/exceptions/method_not_found.php');
+require_once('core/Parser.php');
 use Core\Parser as Parser;
 
 class RoutesTest extends PHPUnit_Framework_TestCase {
@@ -34,7 +32,7 @@ class RoutesTest extends PHPUnit_Framework_TestCase {
     }
 
     public function test_is_method_not_callable() {
-        $this->setExpectedException('\Core\MethodNotCallable');
+        $this->setExpectedException('\Core\Exceptions\MethodNotCallable');
         $controller = Parser::controller('MyController');
         Parser::execute($controller, 'private_method');
     }

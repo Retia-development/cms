@@ -1,10 +1,8 @@
 <?php
 namespace Core;
-use Exception;
 require_once('core/exceptions/controller_not_found.php'); 
 require_once('core/exceptions/method_not_found.php'); 
-
-class MethodNotCallable  extends Exception {}
+require_once('core/exceptions/method_not_callable.php');
 
 class Parser {
     public static function controller($controller_name) {
@@ -33,7 +31,7 @@ class Parser {
         }
 
         if (!is_callable([$controller, $method])) {
-            throw new MethodNotCallable();
+            throw new \Core\Exceptions\MethodNotCallable(get_class($controller), $method);
         }
 
         return call_user_func_array([$controller, $method], self::params($params));
