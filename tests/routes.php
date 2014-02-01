@@ -10,14 +10,12 @@ class RoutesTest extends PHPUnit_Framework_TestCase {
 
     public function test_get_class_invalid_controller() {
         $this->setExpectedException('\Core\ControllerNotFound');
-        $invalid_controller_name = 'InvalidClass';
-        Parser::controller($invalid_controller_name);
+        Parser::controller('InvalidControllerThatWillThrowControllerNotFound');
     }
 
     public function test_method() {
         $controller = Parser::controller('MyController');
-        $method = 'test';
-        $output = Parser::execute($controller, $method);
+        $output = Parser::execute($controller, 'test');
         $this->assertEquals($output, 'test');
     }
 
@@ -30,15 +28,13 @@ class RoutesTest extends PHPUnit_Framework_TestCase {
     public function test_invalid_method() {
         $this->setExpectedException('\Core\MethodNotFound');
         $controller = Parser::controller('MyController');
-        $method = 'this_is_an_invalid_method';
-        Parser::execute($controller, $method);
+        Parser::execute($controller, 'this_is_an_invalid_method');
     }
 
     public function test_is_method_not_callable() {
         $this->setExpectedException('\Core\MethodNotCallable');
         $controller = Parser::controller('MyController');
-        $method = 'private_method';
-        Parser::execute($controller, $method);
+        Parser::execute($controller, 'private_method');
     }
 
     public function test_params() {
@@ -52,18 +48,13 @@ class RoutesTest extends PHPUnit_Framework_TestCase {
     }
 
     public function test_empty_params() {
-        $params = '';
-        $this->assertEquals([], Parser::params($params));
+        $this->assertEquals([], Parser::params(''));
     }
 
     public function test_controller_method_with_params() {
         $controller_name = 'MyController';
-        $method_name = 'multiply';
-        $params = '2/3/';
-
         $controller = Parser::controller($controller_name);
-        $output = Parser::execute($controller, $method_name, $params);
-
+        $output = Parser::execute($controller, 'multiply', '2/3/');
         $this->assertEquals($output, 6);
     }
 }
