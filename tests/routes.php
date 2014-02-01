@@ -1,5 +1,7 @@
 <?php 
-require('core/Parser.php'); 
+require_once('core/Parser.php'); 
+require_once('core/exceptions/controller_not_found.php');
+require_once('core/exceptions/method_not_found.php');
 use Core\Parser as Parser;
 
 class RoutesTest extends PHPUnit_Framework_TestCase {
@@ -9,7 +11,7 @@ class RoutesTest extends PHPUnit_Framework_TestCase {
     }
 
     public function test_get_class_invalid_controller() {
-        $this->setExpectedException('\Core\ControllerNotFound');
+        $this->setExpectedException('\Core\Exceptions\ControllerNotFound');
         Parser::controller('InvalidControllerThatWillThrowControllerNotFound');
     }
 
@@ -26,7 +28,7 @@ class RoutesTest extends PHPUnit_Framework_TestCase {
     }
 
     public function test_invalid_method() {
-        $this->setExpectedException('\Core\MethodNotFound');
+        $this->setExpectedException('\Core\Exceptions\MethodNotFound');
         $controller = Parser::controller('MyController');
         Parser::execute($controller, 'this_is_an_invalid_method');
     }

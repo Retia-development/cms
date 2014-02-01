@@ -1,9 +1,9 @@
-<?php 
+<?php
 namespace Core;
 use Exception;
+require_once('core/exceptions/controller_not_found.php'); 
+require_once('core/exceptions/method_not_found.php'); 
 
-class ControllerNotFound extends Exception {}
-class MethodNotFound     extends Exception {}
 class MethodNotCallable  extends Exception {}
 
 class Parser {
@@ -11,13 +11,13 @@ class Parser {
         //TODO: Make path_to_controller configurable
         $path_to_controller = "controllers/$controller_name.php";
         if (!file_exists($path_to_controller)) {
-            throw new ControllerNotFound();
+            throw new \Core\Exceptions\ControllerNotFound($controller_name);
         }
 
         include_once($path_to_controller);
 
         if (!class_exists($controller_name)) {
-            throw new ControllerNotFound();
+            throw new \Core\Exceptions\ControllerNotFound($controller_name);
         }
         
         return new $controller_name();
@@ -29,7 +29,7 @@ class Parser {
         }
 
         if (!method_exists($controller, $method)) {
-            throw new MethodNotFound();
+            throw new \Core\Exceptions\MethodNotFound(get_class($controller), $method);
         }
 
         if (!is_callable([$controller, $method])) {
