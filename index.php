@@ -10,6 +10,5 @@ $params = isset($_GET['params']) ? $_GET['params'] : NULL;
 try {
 	Parser::execute(Parser::controller($controller), $method, $params);
 } catch (Exception $e) {
-	//TODO: Handle exceptions
-	var_dump($e);
+	echo $e->message;
 }
