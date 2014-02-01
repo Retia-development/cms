@@ -1,19 +1,20 @@
 <?php 
+namespace Core;
+use Exception;
+
 class ControllerNotFound extends Exception {}
 class MethodNotFound extends Exception {}
 
-class MyClass {
-    public function test() {
-        return 'test';
-    }
-
-    public function multiply($a, $b) {
-        return $a * $b;
-    }
-}
-
 class Parser {
     public static function controller($controller_name) {
+        //TODO: Make path_to_controller configurable
+        $path_to_controller = "controllers/$controller_name.php";
+        if (!file_exists($path_to_controller)) {
+            throw new ControllerNotFound();
+        }
+
+        include_once($path_to_controller);
+
         if (!class_exists($controller_name)) {
             throw new ControllerNotFound();
         }
