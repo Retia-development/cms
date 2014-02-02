@@ -22,7 +22,7 @@ class Parser {
 
     public static function execute($controller, $method=NULL, $params='') {
         if (is_null($method) || !strlen(trim($method))) {
-            $method = 'index';
+            $method = DEFAULT_CONTROLLER_METHOD;
         }
 
         if (!method_exists($controller, $method)) {

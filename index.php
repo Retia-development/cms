@@ -1,9 +1,10 @@
-<?php 
+<?php
+require('config/config.php');
 require('core/Parser.php');
 use \Core\Parser as Parser;
 
 
-// TODO: set ENVIRONMENT constants to either admin or 'frontend' 
+// TODO: set ENVIRONMENT constants to either admin or 'frontend'
 define('ENVIRONMENT', 'not yet impleneted');
 define('ENVIRONMENT_CONTROLLERS', 'controllers/');
 

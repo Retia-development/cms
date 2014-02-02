@@ -1,4 +1,5 @@
 <?php
+require('config/config.php');
 define('ENVIRONMENT', 'test');
 define('ENVIRONMENT_CONTROLLERS', 'tests/controllers/');
 define('ENVIRONMENT_MODELS', 'tests/models/');
