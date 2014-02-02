@@ -1,9 +1,10 @@
-<?php 
+<?php
 namespace Core\Exceptions;
 
 class MethodNotCallable extends \Exception {
     public $message;
-    public function __construct($controller, $method) {
-        $this->message = "Controller: $controller Method: $method is not callable.";
+    public function __construct($class_name, $method, $type) {
+        $this->message = ucfirst($type)
+        . ": $class_name Method: $method is not callable.";
     }
 }
