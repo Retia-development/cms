@@ -7,7 +7,7 @@ require_once('core/exceptions/method_not_callable.php');
 class Parser {
     public static function controller($controller_name) {
         //TODO: Make path_to_controller configurable
-        $path_to_controller = "controllers/$controller_name.php";
+        $path_to_controller = ENVIRONMENT_CONTROLLERS."$controller_name.php";
         if (!file_exists($path_to_controller)) {
             throw new \Core\Exceptions\ControllerNotFound($controller_name);
         }
