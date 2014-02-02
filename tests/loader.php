@@ -22,15 +22,12 @@ class LoaderTest extends PHPUnit_Framework_TestCase {
         $loader->model('ModelWithDifferentNameThanFile');
     }
 
-    public function test_save_model_to_loader() {
+    public function test_duplicate_models() {
         $loader = new Loader();
-        $loader->model('myModel');
-        $this->assertTrue(isset($loader->model->MyModel));
-    }
+        $first_model = $loader->model('myModel');
+        $second_model = $loader->model('myModel');
 
-    public function test_save_model_with_alias() {
-        $loader = new Loader();
-        $loader->model('myModel', 'myLittleModel');
-        $this->assertTrue(isset($loader->model->myLittleModel));
+        $first_model->a_very_random_value = 1337;
+        $this->assertFalse(isset($second_model->a_very_random_value));
     }
 }
