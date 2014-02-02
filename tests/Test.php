@@ -1,6 +1,7 @@
 <?php
 define('ENVIRONMENT', 'test');
 define('ENVIRONMENT_CONTROLLERS', 'tests/controllers/');
+define('ENVIRONMENT_MODELS', 'tests/models/');
 
 foreach (glob('tests/*.php') as $file) {
     $filename = pathinfo($file, PATHINFO_FILENAME);
