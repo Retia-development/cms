@@ -17,3 +17,4 @@ foreach (glob('tests/*.php') as $file) {
     }
 
     new $class_name();
+}
