@@ -2,10 +2,9 @@
 define('ENVIRONMENT', 'test');
 define('ENVIRONMENT_CONTROLLERS', 'tests/controllers/');
 
-$test_classess = [];
 foreach (glob('tests/*.php') as $file) {
-    $filename = strtolower(pathinfo($file, PATHINFO_FILENAME));
-    if ($filename == 'test') {
+    $filename = pathinfo($file, PATHINFO_FILENAME);
+    if ($filename == pathinfo(__file__, PATHINFO_FILENAME)) {
         continue;
     }
 
@@ -16,5 +15,5 @@ foreach (glob('tests/*.php') as $file) {
         continue;
     }
 
-    $test_classess[] = new $class_name();
+    new $class_name();
 }
