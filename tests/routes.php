@@ -1,5 +1,5 @@
 <?php 
-require('core/Parser.php'); 
+require_once('core/Parser.php');
 use Core\Parser as Parser;
 
 class RoutesTest extends PHPUnit_Framework_TestCase {
@@ -9,7 +9,7 @@ class RoutesTest extends PHPUnit_Framework_TestCase {
     }
 
     public function test_get_class_invalid_controller() {
-        $this->setExpectedException('\Core\ControllerNotFound');
+        $this->setExpectedException('\Core\Exceptions\ControllerNotFound');
         Parser::controller('InvalidControllerThatWillThrowControllerNotFound');
     }
 
@@ -25,14 +25,20 @@ class RoutesTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals($output, 'indekusu');
     }
 
+    public function test_default_empty_method() {
+        $controller = Parser::controller('MyController');
+        $output = Parser::execute($controller, '');
+        $this->assertEquals($output, 'indekusu');
+    }
+
     public function test_invalid_method() {
-        $this->setExpectedException('\Core\MethodNotFound');
+        $this->setExpectedException('\Core\Exceptions\MethodNotFound');
         $controller = Parser::controller('MyController');
         Parser::execute($controller, 'this_is_an_invalid_method');
     }
 
     public function test_is_method_not_callable() {
-        $this->setExpectedException('\Core\MethodNotCallable');
+        $this->setExpectedException('\Core\Exceptions\MethodNotCallable');
         $controller = Parser::controller('MyController');
         Parser::execute($controller, 'private_method');
     }

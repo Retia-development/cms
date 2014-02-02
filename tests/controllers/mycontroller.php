@@ -1,8 +1,8 @@
-<?php 
+<?php
 class MyController {
-	public function index() {
-		return 'indekusu';
-	}
+    public function index() {
+        return 'indekusu';
+    }
 
     public function test() {
         return 'test';
@@ -13,6 +13,6 @@ class MyController {
     }
 
     private function private_method() {
-    	return 'I am private';
+        return 'I am private';
     }
 }
