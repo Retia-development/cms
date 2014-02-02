@@ -1,21 +1,19 @@
 <?php
 namespace Core;
 require_once('core/exceptions/controller_not_found.php');
-require_once('core/exceptions/method_not_found.php');
-require_once('core/exceptions/method_not_callable.php');
+require_once('core/exceptions/class_not_found.php');
 
 class Parser {
     public static function controller($controller_name) {
-        //TODO: Make path_to_controller configurable
         $path_to_controller = ENVIRONMENT_CONTROLLERS."$controller_name.php";
         if (!file_exists($path_to_controller)) {
-            throw new \Core\Exceptions\ControllerNotFound($controller_name, 'Controller');
+            throw new \Core\Exceptions\ClassNotFound($controller_name, 'Controller');
         }
 
         include_once($path_to_controller);
 
         if (!class_exists($controller_name)) {
-            throw new \Core\Exceptions\ControllerNotFound($controller_name, 'Controller');
+            throw new \Core\Exceptions\ClassNotFound($controller_name, 'Controller');
         }
 
         return new $controller_name();

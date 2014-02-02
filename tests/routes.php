@@ -1,4 +1,4 @@
-<?php 
+<?php
 require_once('core/Parser.php');
 use Core\Parser as Parser;
 
@@ -9,7 +9,7 @@ class RoutesTest extends PHPUnit_Framework_TestCase {
     }
 
     public function test_get_class_invalid_controller() {
-        $this->setExpectedException('\Core\Exceptions\ControllerNotFound');
+        $this->setExpectedException('\Core\Exceptions\ClassNotFound');
         Parser::controller('InvalidControllerThatWillThrowControllerNotFound');
     }
 
