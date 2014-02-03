@@ -1,6 +1,13 @@
 <?php
 require('config/config.php');
-require('core/Parser.php');
+require_once('core/controllers/base_controller.php');
+require_once('core/exceptions/class_not_found.php');
+require_once('core/exceptions/method_not_found.php');
+require_once('core/exceptions/method_not_callable.php');
+require_once('core/exceptions/no_abstraction_of_base.php');
+require_once('core/Parser.php');
+require_once('core/loader.php');
+
 use \Core\Parser as Parser;
 
 

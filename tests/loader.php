@@ -1,6 +1,4 @@
 <?php
-require_once('core/exceptions/class_not_found.php');
-require_once('core/loader.php');
 use Core\Loader as Loader;
 
 class LoaderTest extends PHPUnit_Framework_TestCase {
