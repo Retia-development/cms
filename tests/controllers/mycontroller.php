@@ -1,5 +1,6 @@
 <?php
-class MyController {
+
+class MyController extends BaseController {
     public function index() {
         return 'indekusu';
     }
