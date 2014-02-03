@@ -13,13 +13,9 @@ class RoutesTest extends PHPUnit_Framework_TestCase {
         Parser::controller('InvalidControllerThatWillThrowControllerNotFound');
     }
 
-    public function test_if_class_is_abstraction_of_base() {
-        $class = Parser::controller('MyController');
-        $this->assertTrue($class instanceof BaseController);
-    }
-
     public function test_if_class_is_not_abstraction_of_base() {
-        $this->getExpectedException('NoAbstractionOfBase');
+        $this->setExpectedException('\Core\Exceptions\NoAbstractionOfBase');
+        $controller = Parser::controller('NotAnAbstractionOfBase');
     }
 
     public function test_method() {

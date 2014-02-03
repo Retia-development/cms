@@ -3,6 +3,7 @@ namespace Core;
 require_once('core/exceptions/class_not_found.php');
 require_once('core/exceptions/method_not_found.php');
 require_once('core/exceptions/method_not_callable.php');
+require_once('core/exceptions/no_abstraction_of_base.php');
 
 class Parser {
     public static function controller($controller_name) {
@@ -17,7 +18,12 @@ class Parser {
             throw new \Core\Exceptions\ClassNotFound($controller_name, 'Controller');
         }
 
-        return new $controller_name();
+        $controller = new $controller_name();
+        if (!is_subclass_of($controller, 'BaseController')) {
+            throw new \Core\Exceptions\NoAbstractionOfBase($controller_name);
+        }
+
+        return $controller;
     }
 
     public static function execute($controller, $method=NULL, $params='') {
