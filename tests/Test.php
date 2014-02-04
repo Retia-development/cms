@@ -19,6 +19,7 @@ foreach (glob('tests/*.php') as $file) {
 
     include($file);
     $class_name = ucfirst("{$filename}Test");
+    $class_name = str_replace('_', NULL, $class_name);
     if (!class_exists($class_name)) {
         echo "WARNING: Can't find class $class_name in $file \n";
         continue;

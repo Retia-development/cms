@@ -8,4 +8,14 @@ class BaseControllerTest extends PHPUnit_Framework_TestCase {
         $reflection = new ReflectionClass('BaseController');
         $this->assertTrue($reflection->isAbstract());
     }
+
+    public function test_load_model() {
+        $controller = new DummyController();
+        $model = $controller->load->model('myModel');
+        $this->assertTrue($model instanceof MyModel);
+    }
+}
+
+class DummyController extends BaseController {
+
 }
