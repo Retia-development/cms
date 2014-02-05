@@ -4,12 +4,10 @@ namespace Core;
 class Input {
     public function post() {
         $post_values = $_POST;
-        array_walk($post_values, function($key, $value){
-            if (strlen(trim($value))) {
-                return $value;
+        $a = array_walk_recursive($post_values, function(&$value) {
+            if (!strlen(trim($value))) {
+                $value = NULL;
             }
-
-            return NULL;
         });
         return $post_values;
     }

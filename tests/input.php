@@ -14,12 +14,49 @@ class InputTest extends PHPUnit_Framework_TestCase {
         $this->assertEquals($_POST, $input->post());
     }
 
-    function test_empty_values() {
+    function test_post_empty_values() {
         $input = new Input();
-        $post_values = ['haiya'=>'', 'firstname' => 'Thomas', 'empty' => ''];
+        $post_values = ['haiya' => '', 'firstname' => 'Thomas', 'empty' => ''];
         $_POST = $post_values;
-        $this->assertEquals(
-            ['haiya'=> NULL, 'firstname' => 'Thomas', 'empty' => NULL],
-            $input->post());
+        $values = $input->post();
+        $this->assertTrue(is_null($values['haiya']));
+        $this->assertTrue(is_null($values['empty']));
+        $this->assertFalse(is_null($values['firstname']));
+    }
+
+    function test_post_multi_dimentional_array() {
+        $input = new Input();
+        $post_values = [
+            'address' =>
+                ['zipcode' => '1234AJ', 'city' => 'Somewhere'],
+            'phone_numbers' =>
+                ['0123456789', '032131231', '321321'],
+            'firstname' => 'Thomas'
+        ];
+
+        $_POST = $post_values;
+        $this->assertEquals($_POST, $input->post());
+    }
+
+    function test_post_multi_dimentional_array_with_empty_values() {
+        $input = new Input();
+        $post_values = [
+            'species' =>
+                ['humans' =>
+                    [
+                        ['Thomas', '', '4', '', '2'],
+                        ['Bart', '2', '', '3', '1']
+                    ]
+                ]
+            ];
+
+        $_POST = $post_values;
+        $values = $input->post();
+        $this->assertTrue(is_null($values['species']['humans'][0][1]));
+        $this->assertTrue(is_null($values['species']['humans'][0][3]));
+        $this->assertTrue(is_null($values['species']['humans'][1][2]));
+
+        $this->assertFalse(is_null($values['species']['humans'][1][4]));
+        $this->assertFalse(is_null($values['species']['humans'][0][0]));
     }
 }
