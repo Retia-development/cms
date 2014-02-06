@@ -49,14 +49,17 @@ class InputTest extends PHPUnit_Framework_TestCase {
                     ]
                 ]
             ];
-
         $_POST = $post_values;
+        $post_values = [
+            'species' =>
+                ['humans' =>
+                    [
+                        ['Thomas', NULL, '4', NULL, '2'],
+                        ['Bart', '2', NULL, '3', '1']
+                    ]
+                ]
+            ];
         $values = $input->post();
-        $this->assertTrue(is_null($values['species']['humans'][0][1]));
-        $this->assertTrue(is_null($values['species']['humans'][0][3]));
-        $this->assertTrue(is_null($values['species']['humans'][1][2]));
-
-        $this->assertFalse(is_null($values['species']['humans'][1][4]));
-        $this->assertFalse(is_null($values['species']['humans'][0][0]));
+        $this->assertSame($post_values, $input->post());
     }
 }
