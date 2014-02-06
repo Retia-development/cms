@@ -14,6 +14,12 @@ class BaseControllerTest extends PHPUnit_Framework_TestCase {
         $model = $controller->load->model('myModel');
         $this->assertTrue($model instanceof MyModel);
     }
+
+    public function test_input_single_post() {
+        $_POST['firstname'] = 'Thomas';
+        $controller = new DummyController();
+        $this->assertSame($controller->input->post('firstname'), 'Thomas');
+    }
 }
 
 class DummyController extends BaseController {

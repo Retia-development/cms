@@ -14,6 +14,5 @@ class MyController extends BaseController {
     }
 
     private function private_method() {
-        return 'I am private';
     }
 }
