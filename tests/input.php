@@ -89,4 +89,39 @@ class InputTest extends PHPUnit_Framework_TestCase {
         $input = new Input();
         $this->assertSame(['131', NULL, 2, NULL], $input->post('codes'));
     }
+
+    function test_get() {
+        $_GET['test'] = 'value';
+        $_GET['test2'] = '2';
+        $input = new Input();
+        $this->assertEquals($input->get(), ['test' => 'value', 'test2' => '2']);
+    }
+
+    function test_get_with_empty_values() {
+        $_GET['a'] = ' ';
+        $_GET['b'] = 'a';
+        $_GET['c'] = 'b';
+        $input = new Input();
+        $this->assertSame(
+            ['a' => NULL, 'b' => 'a', 'c' => 'b'],
+            $input->get()
+            );
+    }
+
+    function test_get_single_value() {
+        $_GET['a'] = 'b';
+        $input = new Input();
+        $this->assertSame($input->get('a'), 'b');
+    }
+
+    function test_get_invalid_empty() {
+        $input = new Input();
+        $this->assertSame($input->get('a'), NULL);
+    }
+
+    function test_get_parse_value() {
+        $_GET = ['a' => 'b', 'c' =>'a%20comment'];
+        $input = new Input();
+        $this->assertSame(['a' => 'b', 'c' => 'a comment'], $input->get());
+    }
 }
