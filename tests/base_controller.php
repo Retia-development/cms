@@ -20,6 +20,12 @@ class BaseControllerTest extends PHPUnit_Framework_TestCase {
         $controller = new DummyController();
         $this->assertSame($controller->input->post('firstname'), 'Thomas');
     }
+
+    public function test_input_single_get() {
+        $_GET['fullname'] = 'Thomas%20Farla';
+        $controller = new DummyController();
+        $this->assertSame('Thomas Farla', $controller->input->get('fullname'));
+    }
 }
 
 class DummyController extends BaseController {

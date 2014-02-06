@@ -20,7 +20,7 @@ class Input {
         return $this->_get_input($this->_get_values, $key);
     }
 
-    private function _get_input($values, $key=NULL) {
+    private function _get_input($values, $key) {
         if (is_null($key)) {
             return $values;
         }
