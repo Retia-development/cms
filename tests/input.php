@@ -3,7 +3,6 @@ use Core\Input as Input;
 
 class InputTest extends PHPUnit_Framework_TestCase {
     function test_post_values() {
-        $input = new Input();
         $post_values = [
             'firstname'=>'Gill',
             'lastname' => 'Bates',
@@ -11,21 +10,23 @@ class InputTest extends PHPUnit_Framework_TestCase {
             'zipcode' => '1234AJ',
         ];
         $_POST = $post_values;
+        $input = new Input();
         $this->assertEquals($_POST, $input->post());
     }
 
     function test_post_empty_values() {
-        $input = new Input();
-        $post_values = ['haiya' => '', 'firstname' => 'Thomas', 'empty' => ''];
+        $post_values = ['haiya' => '',
+                        'firstname' => 'Thomas',
+                        'empty' => ''];
         $_POST = $post_values;
-        $values = $input->post();
-        $this->assertTrue(is_null($values['haiya']));
-        $this->assertTrue(is_null($values['empty']));
-        $this->assertFalse(is_null($values['firstname']));
+        $input = new Input();
+        $expected_values = ['haiya' => NULL,
+                            'firstname' => 'Thomas',
+                            'empty' => NULL];
+        $this->assertSame($expected_values, $input->post());
     }
 
     function test_post_multi_dimentional_array() {
-        $input = new Input();
         $post_values = [
             'address' =>
                 ['zipcode' => '1234AJ', 'city' => 'Somewhere'],
@@ -33,13 +34,12 @@ class InputTest extends PHPUnit_Framework_TestCase {
                 ['0123456789', '032131231', '321321'],
             'firstname' => 'Thomas'
         ];
-
         $_POST = $post_values;
+        $input = new Input();
         $this->assertEquals($_POST, $input->post());
     }
 
     function test_post_multi_dimentional_array_with_empty_values() {
-        $input = new Input();
         $post_values = [
             'species' =>
                 ['humans' =>
@@ -50,7 +50,7 @@ class InputTest extends PHPUnit_Framework_TestCase {
                 ]
             ];
         $_POST = $post_values;
-        $post_values = [
+        $expected_values = [
             'species' =>
                 ['humans' =>
                     [
@@ -59,7 +59,34 @@ class InputTest extends PHPUnit_Framework_TestCase {
                     ]
                 ]
             ];
+        $input = new Input();
         $values = $input->post();
-        $this->assertSame($post_values, $input->post());
+        $this->assertSame($expected_values, $input->post());
+    }
+
+    function test_post_single_value() {
+        $_POST['firstname'] = 'Thomas';
+        $_POST['lastname'] = 'Farla';
+        $input = new Input();
+        $value = $input->post('firstname');
+        $this->assertEquals('Thomas', $value);
+    }
+
+    function test_post_single_value_not_found() {
+        $input = new Input();
+        $this->assertSame($input->post('firstname'), NULL);
+    }
+
+    function test_post_single_array() {
+        $values = [
+            'lastname' => 'Farla',
+            'codes' => ['131', '', 2, NULL],
+            'empty' => '',
+            'null' => NULL,
+        ];
+
+        $_POST = $values;
+        $input = new Input();
+        $this->assertSame(['131', NULL, 2, NULL], $input->post('codes'));
     }
 }
