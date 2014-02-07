@@ -32,6 +32,13 @@ class Input {
         return $values[$key];
     }
 
+    public function files($index) {
+        if(!isset($_FILES[$index])) {
+            return NULL;
+        }
+        return $_FILES[$index];
+    }
+
     private function _parse($prop, $func=NULL) {
         array_walk_recursive($this->$prop, function(&$value) use($func) {
             if (!is_null($func)) {
