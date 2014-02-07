@@ -4,10 +4,12 @@ namespace Core;
 class Input {
     private $_post_values;
     private $_get_values;
+    private $_file_values;
 
     public function __construct() {
         $this->_post_values = $_POST;
         $this->_get_values = $_GET;
+        $this->_file_values = $_FILES;
         $this->_parse('_post_values');
         $this->_parse('_get_values', 'urldecode');
     }
@@ -32,11 +34,8 @@ class Input {
         return $values[$key];
     }
 
-    public function files($index) {
-        if(!isset($_FILES[$index])) {
-            return NULL;
-        }
-        return $_FILES[$index];
+    public function file($key=NULL) {
+        return $this->_get_input($this->_file_values, $key);
     }
 
     private function _parse($prop, $func=NULL) {

@@ -131,12 +131,31 @@ class InputTest extends PHPUnit_Framework_TestCase {
                             'size' => 1000,
                             'tmp_name' => 'temp-test'];
         $input = new Input();
-        $this->assertEquals($input->files('index'), $_FILES['index']);
+        $this->assertEquals($input->file('index'), $_FILES['index']);
     }
 
     function test_if_file_not_exists() {
         $input = new Input();
-        $result = $input->files('hello');
+        $result = $input->file('hello');
         $this->assertSame(NULL, $result);
+    }
+
+    function test_if_empty_file() {
+        $_FILES['first']  = ['name' => 'test.pdf',
+                            'type' => 'pdf',
+                            'size' => 1000,
+                            'tmp_file' => 't'];
+
+        $_FILES['second'] = ['name' => 'image.jpg',
+                            'type' => 'image/jpg',
+                            'size' => 2000,
+                            'tmp_file' => 'daw'];
+
+        $_FILES['third']  = ['name' => 'image.png',
+                             'type' => 'image/png',
+                             'size' => 2321,
+                             'tmp_file' => 'dsadsa'];
+        $input = new Input();
+        $this->assertSame($input->file(), $_FILES);
     }
 }
