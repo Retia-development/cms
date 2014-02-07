@@ -22,6 +22,10 @@ class Input {
         return $this->_get_input($this->_get_values, $key);
     }
 
+    public function file($key=NULL) {
+        return $this->_get_input($this->_file_values, $key);
+    }
+
     private function _get_input($values, $key) {
         if (is_null($key)) {
             return $values;
@@ -32,10 +36,6 @@ class Input {
         }
 
         return $values[$key];
-    }
-
-    public function file($key=NULL) {
-        return $this->_get_input($this->_file_values, $key);
     }
 
     private function _parse($prop, $func=NULL) {
