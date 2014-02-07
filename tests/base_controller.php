@@ -26,6 +26,12 @@ class BaseControllerTest extends PHPUnit_Framework_TestCase {
         $controller = new DummyController();
         $this->assertSame('Thomas Farla', $controller->input->get('fullname'));
     }
+
+    public function test_input_single_file() {
+        $_FILES['stuff'] = ['name' => '1.pdf'];
+        $controller = new DummyController();
+        $this->assertSame($controller->input->file('stuff'), ['name' => '1.pdf']);
+    }
 }
 
 class DummyController extends BaseController {
