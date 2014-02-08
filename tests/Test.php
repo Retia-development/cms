@@ -14,6 +14,8 @@ require_once('core/views/template.php');
 define('ENVIRONMENT', 'test');
 define('ENVIRONMENT_CONTROLLERS', 'tests/controllers/');
 define('ENVIRONMENT_MODELS', 'tests/models/');
+define('ENVIRONMENT_VIEWS', 'tests/views/');
+
 foreach (glob('tests/*.php') as $file) {
     $filename = pathinfo($file, PATHINFO_FILENAME);
     if ($filename == pathinfo(__file__, PATHINFO_FILENAME)) {

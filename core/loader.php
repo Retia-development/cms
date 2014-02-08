@@ -18,8 +18,8 @@ class Loader {
         return new $model_name();
     }
 
-    public function view($view_name) {
-        $path_to_view = "tests/views/$view_name";
+    public function view($view_file) {
+        $path_to_view = ENVIRONMENT_VIEWS . "$view_file";
         if (!file_exists($path_to_view)) {
             throw new \Core\Exceptions\FileNotFound($path_to_view);
         }
