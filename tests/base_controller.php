@@ -32,6 +32,12 @@ class BaseControllerTest extends PHPUnit_Framework_TestCase {
         $controller = new DummyController();
         $this->assertSame($controller->input->file('stuff'), ['name' => '1.pdf']);
     }
+
+    public function test_load_view() {
+        $controller = new DummyController();
+        $view_content = $controller->load->view('multiply.php', ['two' => 2, 'three' => 3]);
+        $this->assertEquals($view_content, 6);
+    }
 }
 
 class DummyController extends BaseController {
