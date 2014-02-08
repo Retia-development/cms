@@ -1,6 +1,5 @@
 <?php
-
-class Welcome {
+class Welcome extends BaseController{
     public function index() {
         echo "Hello, my name is Azunyan~ :3";
     }

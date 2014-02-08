@@ -1,12 +1,21 @@
 <?php
 require('config/config.php');
-require('core/Parser.php');
+require_once('core/controllers/base_controller.php');
+require_once('core/exceptions/class_not_found.php');
+require_once('core/exceptions/method_not_found.php');
+require_once('core/exceptions/method_not_callable.php');
+require_once('core/exceptions/no_abstraction_of_base.php');
+require_once('core/exceptions/file_not_found.php');
+require_once('core/Parser.php');
+require_once('core/loader.php');
+require_once('core/input.php');
 use \Core\Parser as Parser;
 
 
 // TODO: set ENVIRONMENT constants to either admin or 'frontend'
 define('ENVIRONMENT', 'not yet impleneted');
 define('ENVIRONMENT_CONTROLLERS', 'controllers/');
+define('ENVIRONMENT_VIEWS', 'views/');
 
 //TODO: Add configurable default controller
 $controller = isset($_GET['controller']) ? $_GET['controller'] : 'Welcome';
@@ -17,4 +26,6 @@ try {
 	Parser::execute(Parser::controller($controller), $method, $params);
 } catch (Exception $e) {
 	echo $e->message;
+    echo "<h2>Backtrace</h2>";
+    echo "<pre><code>" . print_r($e->getTrace(), TRUE) . "</code></pre>";
 }

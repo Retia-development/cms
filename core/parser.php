@@ -1,9 +1,5 @@
 <?php
 namespace Core;
-require_once('core/exceptions/class_not_found.php');
-require_once('core/exceptions/method_not_found.php');
-require_once('core/exceptions/method_not_callable.php');
-require_once('core/exceptions/no_abstraction_of_base.php');
 
 class Parser {
     public static function controller($controller_name) {

@@ -1,5 +1,4 @@
 <?php
-require_once('core/Parser.php');
 use Core\Parser as Parser;
 
 class RoutesTest extends PHPUnit_Framework_TestCase {
