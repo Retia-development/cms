@@ -13,7 +13,9 @@ class Backtrace {
             $string.='<details>';
                 $string.='<summary>' . $trace['file'] . ':' . $trace['line'] . '</summary>';
                     $string.= '<pre>';
-                        $string.= print_r($trace, TRUE);
+                        $string.='<code>';
+                            $string.= print_r($trace, TRUE);
+                        $string.='</code>';
                     $string.= '</pre>';
             $string.='</details>';
         }
