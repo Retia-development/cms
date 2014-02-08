@@ -5,6 +5,7 @@ require_once('core/exceptions/class_not_found.php');
 require_once('core/exceptions/method_not_found.php');
 require_once('core/exceptions/method_not_callable.php');
 require_once('core/exceptions/no_abstraction_of_base.php');
+require_once('core/exceptions/file_not_found.php');
 require_once('core/Parser.php');
 require_once('core/loader.php');
 require_once('core/input.php');

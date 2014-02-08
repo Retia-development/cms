@@ -3,6 +3,7 @@ use \Core\Exceptions\ClassNotFound as ClassNotFound;
 use \Core\Exceptions\MethodNotFound as MethodNotFound;
 use \Core\Exceptions\MethodNotCallable as MethodNotCallable;
 use \Core\Exceptions\NoAbstractionOfBase as NoAbstractionOfBase;
+use \Core\Exceptions\FileNotFound as FileNotFound;
 
 class ExceptionsTest extends PHPUnit_Framework_TestCase {
     public function test_class_not_found() {
@@ -23,6 +24,11 @@ class ExceptionsTest extends PHPUnit_Framework_TestCase {
     public function test_no_abstraction_of_base() {
         $exception = new NoAbstractionOfBase('MyController');
         $this->assertEquals($exception->message, 'MyController is no abstraction of base.');
+    }
+
+    public function test_file_not_found() {
+        $exception = new FileNotFound('view.php');
+        $this->assertEquals($exception->message, 'File: view.php not found');
     }
 
 }

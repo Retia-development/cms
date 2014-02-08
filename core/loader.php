@@ -17,4 +17,13 @@ class Loader {
 
         return new $model_name();
     }
+
+    public function view($view_name) {
+        $path_to_view = "tests/views/$view_name";
+        if (!file_exists($path_to_view)) {
+            throw new \Core\Exceptions\FileNotFound($path_to_view);
+        }
+
+        return file_get_contents($path_to_view);
+    }
 }

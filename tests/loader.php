@@ -28,4 +28,16 @@ class LoaderTest extends PHPUnit_Framework_TestCase {
         $first_model->a_very_random_value = 1337;
         $this->assertFalse(isset($second_model->a_very_random_value));
     }
+
+    public function test_load_view() {
+        $loader = new Loader();
+        $view_content = file_get_contents('tests/views/myview.php');
+        $this->assertSame($view_content, $loader->view('myview.php'));
+    }
+
+    public function test_view_doesnt_exists() {
+        $this->setExpectedException('Core\Exceptions\FileNotFound');
+        $loader = new Loader();
+        $loader->view('nonExisting.adadawdakdawd');
+    }
 }
