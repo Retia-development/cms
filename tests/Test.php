@@ -5,13 +5,17 @@ require_once('core/exceptions/class_not_found.php');
 require_once('core/exceptions/method_not_found.php');
 require_once('core/exceptions/method_not_callable.php');
 require_once('core/exceptions/no_abstraction_of_base.php');
+require_once('core/exceptions/file_not_found.php');
 require_once('core/Parser.php');
 require_once('core/loader.php');
 require_once('core/Input.php');
+require_once('core/views/template.php');
 
 define('ENVIRONMENT', 'test');
 define('ENVIRONMENT_CONTROLLERS', 'tests/controllers/');
 define('ENVIRONMENT_MODELS', 'tests/models/');
+define('ENVIRONMENT_VIEWS', 'tests/views/');
+
 foreach (glob('tests/*.php') as $file) {
     $filename = pathinfo($file, PATHINFO_FILENAME);
     if ($filename == pathinfo(__file__, PATHINFO_FILENAME)) {
