@@ -68,4 +68,10 @@ class RoutesTest extends PHPUnit_Framework_TestCase {
         $output = Parser::execute($controller, 'multiply', '2/3/');
         $this->assertEquals($output, 6);
     }
+
+    public function test_controller_class_not_exists() {
+        $this->setExpectedException('\Core\Exceptions\ClassNotFound');
+        $controller_name = 'AControllerName';
+        $controller = parser::controller($controller_name);
+    }
 }
