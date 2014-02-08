@@ -9,6 +9,7 @@ require_once('core/exceptions/file_not_found.php');
 require_once('core/Parser.php');
 require_once('core/loader.php');
 require_once('core/input.php');
+require_once('core/debug/backtrace.php');
 use \Core\Parser as Parser;
 
 
@@ -26,4 +27,7 @@ try {
 	Parser::execute(Parser::controller($controller), $method, $params);
 } catch (Exception $e) {
 	echo $e->message;
+    $backtrace = new Core\Debug\Backtrace();
+    $backtrace->form_exception($e);
+    echo $backtrace;
 }
