@@ -40,4 +40,33 @@ class LoaderTest extends PHPUnit_Framework_TestCase {
         $loader = new Loader();
         $loader->view('nonExisting.adadawdakdawd');
     }
+
+    public function test_view_passing_values() {
+        $loader = new Loader();
+        $view_content = $loader->view('multiply.php', ['two' => 2, 'three' => 3]);
+        $this->assertEquals($view_content, 6);
+    }
+
+    public function test_view_pass_object() {
+        $my_object = new DummyClass();
+        $loader = new Loader();
+        $view_content = $loader->view('object.php', ['object' => $my_object]);
+        $this->assertEquals($view_content, 10);
+    }
+
+    public function test_view_pass_function() {
+        $function = function($a, $b) {
+            return $a + $b;
+        };
+
+        $loader = new Loader();
+        $view_content = $loader->view('function.php', ['function' => $function]);
+        $this->assertEquals($view_content, 2);
+    }
+}
+
+class DummyClass {
+    public function sum(array $numbers) {
+        return array_sum($numbers);
+    }
 }

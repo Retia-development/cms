@@ -18,12 +18,15 @@ class Loader {
         return new $model_name();
     }
 
-    public function view($view_file) {
+    public function view($view_file, $params=[]) {
         $path_to_view = ENVIRONMENT_VIEWS . "$view_file";
         if (!file_exists($path_to_view)) {
             throw new \Core\Exceptions\FileNotFound($path_to_view);
         }
 
-        return file_get_contents($path_to_view);
+        ob_start();
+        extract($params);
+        include($path_to_view);
+        return ob_get_clean();
     }
 }
