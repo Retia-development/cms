@@ -63,6 +63,19 @@ class LoaderTest extends PHPUnit_Framework_TestCase {
         $view_content = $loader->view('function.php', ['function' => $function]);
         $this->assertEquals($view_content, 2);
     }
+
+    public function test_view_html() {
+        $loader = new Loader();
+        $view_content = '<!DOCTYPE html><html><head></head><body>hai</body></html>';
+
+        $this->assertEquals($loader->view('normal.html'), $view_content);
+    }
+
+    public function test_view_html_with_params() {
+        $loader = new Loader();
+        $view_content = '<!DOCTYPE html><html><head></head><body>1</body></html>';
+        $this->assertEquals($loader->view('withphp.html', ['i' => 1]), $view_content);
+    }
 }
 
 class DummyClass {
