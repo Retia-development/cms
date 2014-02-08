@@ -2,6 +2,7 @@
 use Core\Parser as Parser;
 
 class RoutesTest extends PHPUnit_Framework_TestCase {
+
     public function test_get_class() {
         $controller = Parser::controller('MyController');
         $this->assertInstanceOf('MyController', $controller);
@@ -70,7 +71,7 @@ class RoutesTest extends PHPUnit_Framework_TestCase {
 
     public function test_controller_class_not_exists() {
         $this->setExpectedException('\Core\Exceptions\ClassNotFound');
-        $controller_name = 'AControllerName';
+        $controller_name = 'AController';
         $controller = parser::controller($controller_name);
     }
 }
