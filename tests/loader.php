@@ -76,6 +76,24 @@ class LoaderTest extends PHPUnit_Framework_TestCase {
         $view_content = '<!DOCTYPE html><html><head></head><body>1</body></html>';
         $this->assertEquals($loader->view('withphp.html', ['i' => 1]), $view_content);
     }
+
+    public function test_load_template() {
+        $loader = new Loader();
+        $template = $loader->template();
+        $this->assertInstanceOf('Core\Template', $template);
+    }
+
+    public function test_template_file_not_found() {
+        $this->setExpectedException('Core\Exceptions\FileNotFound');
+        $loader = new Loader();
+        $loader->template('something');
+    }
+
+    public function test_class_not_found() {
+        $this->setExpectedException('Core\Exceptions\ClassNotFound');
+        $loader = new Loader();
+        $loader->template('invalid');
+    }
 }
 
 class DummyClass {

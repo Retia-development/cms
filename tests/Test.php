@@ -8,12 +8,15 @@ require_once('core/exceptions/no_abstraction_of_base.php');
 require_once('core/exceptions/file_not_found.php');
 require_once('core/Parser.php');
 require_once('core/loader.php');
-require_once('core/Input.php');
+require_once('core/input.php');
+require_once('core/template.php');
 
 define('ENVIRONMENT', 'test');
 define('ENVIRONMENT_CONTROLLERS', 'tests/controllers/');
 define('ENVIRONMENT_MODELS', 'tests/models/');
 define('ENVIRONMENT_VIEWS', 'tests/views/');
+define('ENVIRONMENT_TEMPLATES', 'tests/templates/');
+define('TEMPLATE', 'mytemplate');
 
 foreach (glob('tests/*.php') as $file) {
     $filename = pathinfo($file, PATHINFO_FILENAME);
