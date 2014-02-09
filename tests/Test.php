@@ -10,6 +10,7 @@ require_once('core/Parser.php');
 require_once('core/loader.php');
 require_once('core/input.php');
 require_once('core/template.php');
+require_once('core/autoload.php');
 
 define('ENVIRONMENT', 'test');
 define('ENVIRONMENT_CONTROLLERS', 'tests/controllers/');
